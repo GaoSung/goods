@@ -1,13 +1,11 @@
 package com.my.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.my.controller.SignupForm;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import java.time.Instant;
 
 @SuppressWarnings("serial")
 @Entity
