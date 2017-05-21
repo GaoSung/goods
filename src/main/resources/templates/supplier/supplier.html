@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
+<head th:replace="fragments/layout :: head(~{this :: title}, ~{this :: .custom-link}, ~{this :: .custom-script})">
+    <title>Task Details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
+    
+    <!-- Custom links for this page only -->
+    <link class="custom-link" href="../../../resources/static/css/task/task.css" th:href="@{/resources/css/task/task.css}" />
+    
+    <script src="../../../resources/static/js/jquery.min.js" th:src="@{/resources/js/jquery.min.js}"></script>
+    <script src="../../../resources/static/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    
+    <!-- Custom scripts for this page only -->
+    <script class="custom-script" src="../../../resources/js/task/task.js" th:src="@{/resources/js/task/task.js}"></script>
+    
+</head>
+<body>
+
+<!--/* The element with breadcrumb class will be passed to the header fragment */-->
+<header th:insert="fragments/layout :: header(~{ :: .breadcrumb})">
+    <ol class="breadcrumb container">
+        <li><a href="#">首页</a></li>
+        <li><a href="#" th:href="@{/supplier}">供应商管理</a></li>
+        <!--<li th:text="${'Task ' + task.id}">供应商详情</li>-->
+        <li>供应商详情</li>
+    </ol>
+</header>
+
+<!--/* Insert content fragment with content of the element with idgoodstask-details' */-->
+<div th:insert="fragments/layout :: content(~{ :: #supplier-details})">
+    <div id="supplier-details">
+        <form class="form-narrow form-horizontal" action="#" method="post" th:action="@{/supplier}" th:object="${supplier}">
+            <th:block th:if="${param.error != null}">
+                <div th:replace="fragments/alert :: alert (type='danger', message='保存失败！请重试.')">Alert</div>
+            </th:block>
+            <input type="hidden" class="form-control" name="id" th:field="*{id}"/>
+            <div class="form-group">
+                <label for="name" class="col-lg-2 control-label">供应商</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="name" placeholder="供应商" name="name" th:field="*{name}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address" class="col-lg-2 control-label">地址</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="address" placeholder="地址" name="address" th:field="*{address}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="contactPerson" class="col-lg-2 control-label">联系人</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="contactPerson" placeholder="联系人" name="contactPerson" th:field="*{contactPerson}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="contactPhone" class="col-lg-2 control-label">电话</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="contactPhone" placeholder="联系电话" name="contactPhone" th:field="*{contactPhone}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <a type="button" class="btn btn-default" th:href="@{/supplier}">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

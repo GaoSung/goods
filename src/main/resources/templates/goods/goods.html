@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
+<head th:replace="fragments/layout :: head(~{this :: title}, ~{this :: .custom-link}, ~{this :: .custom-script})">
+    <title>Task Details</title>
+    <!-- Custom links for this page only -->
+    <link class="custom-link" href="../../../resources/static/css/task/task.css" th:href="@{/css/task/task.css}" />
+
+    <!-- Custom scripts for this page only -->
+    <script class="custom-script" src="../../../resources/static/js/task/task.js" th:src="@{/js/task/task.js}"></script>
+    
+</head>
+<body>
+
+<!--/* The element with breadcrumb class will be passed to the header fragment */-->
+<header th:insert="fragments/layout :: header(~{ :: .breadcrumb})">
+    <ol class="breadcrumb container">
+        <li><a href="#">首页</a></li>
+        <li><a href="#" th:href="@{/goods}">商品管理</a></li>
+        <!--<li th:if="${goods==null||goods.id==null}">新增商品</li>-->
+        <!--<li th:if="${goods.id!=null}" th:text="${'商品详情 '+goods.id}">商品详情</li>-->
+        <li>商品详情</li>
+    </ol>
+</header>
+
+<!--/* Insert content fragment with content of the element with idgoodstask-details' */-->
+<div th:insert="fragments/layout :: content(~{ :: #goods-details})">
+    <div id="goods-details">
+        <form class="form-narrow form-horizontal" action="#" method="post" th:action="@{/goods}" th:object="${goods}">
+            <th:block th:if="${param.error != null}">
+                <div th:replace="fragments/alert :: alert (type='danger', message='保存失败！请重试.')">Alert</div>
+            </th:block>
+            <input type="hidden" class="form-control" name="id" th:field="*{id}"/>
+            <div class="form-group">
+                <label for="name" class="col-lg-2 control-label">商品名</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="name" placeholder="商品名称" name="name" th:field="*{name}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="price" class="col-lg-2 control-label">价格</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="price" placeholder="价格" name="price" th:field="*{price}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cost" class="col-lg-2 control-label">进价</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="cost" placeholder="价格" name="cost" th:field="*{cost}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">状态</label>
+                <div class="col-lg-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="radio1" value="1" th:value="1" th:checked="${goods.status==1}"> 上架
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="radio2" value="0" th:value="0" th:checked="${goods.status==0}"> 下架
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <a type="button" class="btn btn-default" th:href="@{/goods}">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

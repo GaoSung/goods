@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
+<head th:replace="fragments/layout :: head(~{this :: title}, ~{this :: .custom-link}, ~{this :: .custom-script})">
+    <title>Task Details</title>
+    <!-- Custom links for this page only -->
+    <link class="custom-link" href="../../../resources/static/css/task/task.css" th:href="@{/css/task/task.css}" />
+    <!-- Custom scripts for this page only -->
+    <script class="custom-script" src="../../../resources/static/js/task/task.js" th:src="@{/js/task/task.js}"></script>
+    
+</head>
+<body>
+
+<!--/* The element with breadcrumb class will be passed to the header fragment */-->
+<header th:insert="fragments/layout :: header(~{ :: .breadcrumb})">
+    <ol class="breadcrumb container">
+        <li><a href="#">首页</a></li>
+        <li><a href="#" th:href="@{/account}">账户管理</a></li>
+        <li>账户详情</li>
+    </ol>
+</header>
+
+<!--/* Insert content fragment with content of the element with idgoodstask-details' */-->
+<div th:insert="fragments/layout :: content(~{ :: #account-details})">
+    <div id="account-details">
+        <form class="form-narrow form-horizontal" action="#" method="post" th:action="@{/account}" th:object="${account}">
+            <th:block th:if="${param.error != null}">
+                <div th:replace="fragments/alert :: alert (type='danger', message='保存失败！请重试.')">Alert</div>
+            </th:block>
+            <input type="hidden" class="form-control" name="id" th:field="*{id}"/>
+            <div class="form-group">
+                <label for="userName" class="col-lg-2 control-label">用户名</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="userName" placeholder="请输入用户名" name="userName" th:field="*{userName}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address" class="col-lg-2 control-label">密码</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="address" placeholder="请输入密码" name="address" th:field="*{password}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">角色</label>
+                <div class="col-lg-10">
+                    <!--<input type="text" class="form-control" id="contactPerson" placeholder="请输入" name="contactPerson" th:field="*{role}"/>-->
+                    <select class="form-control" id="role" name="role" th:field="*{role}">
+                        <option selected="selected" value="ROLE_USER">普通管理员</option>
+                        <option value="ROLE_ADMIN">超级管理员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <a type="button" class="btn btn-default" th:href="@{/account}">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

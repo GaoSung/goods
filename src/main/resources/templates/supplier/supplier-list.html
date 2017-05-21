@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
+<head th:replace="fragments/layout :: head(~{this :: title}, ~{this :: .custom-link}, ~{this :: .custom-script})">
+    <title>商品信息列表</title>
+    
+    <!-- Custom links for this page only -->
+    <link class="custom-link" href="../../../resources/static/css/task/task.css" th:href="@{/css/task/task.css}" />
+
+    <!-- Custom scripts for this page only -->
+    <script class="custom-script" src="../../../resources/js/task/task.js" th:src="@{/js/task/task.js}"></script>
+</head>
+<body>
+
+<!--/* The element with breadcrumb class will be passed to the header fragment */-->
+<header th:insert="fragments/layout :: header(~{ :: .breadcrumb})">
+    <ol class="breadcrumb container">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">供应商管理</a></li>
+    </ol>
+</header>
+
+<!--/* Insert content fragment with content of the element with goods-list' */-->
+<div th:insert="fragments/layout :: content(~{ :: #supplier-list})">
+    <div id="supplier-list">
+        <form class="form-inline" style="margin-bottom: 20px;" action="#" method="post" th:action="@{/supplier/search}" th:object="${supplier}">
+            <div class="form-group">
+                <label for="supplierName">供应商名称</label>
+                <input type="text" class="form-control" style="width: 200px;" id="supplierName" th:field="*{name}">
+            </div>
+            <button type="submit" class="btn btn-default">查询</button>
+            <a class="btn btn-default" th:href="@{/supplier/add}">新增</a>
+        </form>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>编号</td>
+                <td>供应商名称</td>
+                <td>地址</td>
+                <td>联系人</td>
+                <td>联系电话</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${suppliers.empty}">
+                <td colspan="4">没有商品存在</td>
+            </tr>
+            <tr th:each="item : ${suppliers}">
+                <td th:text="${item.id}">1</td>
+                <td>
+                    <a href="#" th:href="@{/supplier/{id}(id=${item.id})}" th:text="${item.name}">供应商名称</a>
+                </td>
+                <td th:text="${item.address}">Text ...</td>
+                <td th:text="${item.contactPerson}">Text ...</td>
+                <td th:text="${item.contactPhone}">Text ...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="fragments/layout :: footer">Footer</footer>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
+<head th:replace="fragments/layout :: head(~{this :: title}, ~{this :: .custom-link}, ~{this :: .custom-script})">
+    <title>商品信息列表</title>
+    
+    <!-- Custom links for this page only -->
+    <link class="custom-link" href="../../../resources/static/css/task/task.css" th:href="@{/css/task/task.css}" />
+
+    <!-- Custom scripts for this page only -->
+    <script class="custom-script" src="../../../resources/js/task/task.js" th:src="@{/js/task/task.js}"></script>
+</head>
+<body>
+
+<!--/* The element with breadcrumb class will be passed to the header fragment */-->
+<header th:insert="fragments/layout :: header(~{ :: .breadcrumb})">
+    <ol class="breadcrumb container">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">商品管理</a></li>
+    </ol>
+</header>
+
+<!--/* Insert content fragment with content of the element with goods-list' */-->
+<div th:insert="fragments/layout :: content(~{ :: #goods-list})">
+    <div id="goods-list">
+        <form class="form-inline" style="margin-bottom: 20px;" action="#" method="post" th:action="@{/goods/search}" th:object="${goodsParam}">
+            <div class="form-group">
+                <label for="goodsName">商品名称</label>
+                <input type="text" class="form-control" style="width: 200px;" id="goodsName" th:field="*{name}">
+            </div>
+            <button type="submit" class="btn btn-default">查询</button>
+            <a class="btn btn-default" th:href="@{/goods/add}">新增</a>
+        </form>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>编号</td>
+                <td>商品名称</td>
+                <td>价格</td>
+                <td>进价</td>
+                <td>状态</td>
+                <td>上架时间</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${goodsList.empty}">
+                <td colspan="4">没有商品存在</td>
+            </tr>
+            <tr th:each="item : ${goodsList}">
+                <td th:text="${item.id}">1</td>
+                <td>
+                    <a href="#" th:href="@{/goods/{id}(id=${item.id})}" th:text="${item.name}">商品名称</a>
+                </td>
+                <td th:text="${item.price}">Text ...</td>
+                <td th:text="${item.cost}">Text ...</td>
+                <td th:text="${item.status==1?'上架':'下架'}">Text ...</td>
+                <td th:text="${#calendars.format(item.createTime)}">July 11, 2017 2:17:16 PM CDT</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:replace="fragments/layout :: footer">Footer</footer>
+
+</body>
+</html>
