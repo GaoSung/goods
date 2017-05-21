@@ -30,4 +30,6 @@ public class SupplierService {
 
     public Supplier save(Supplier supplier){return supplierRepository.save(supplier);}
 
+    public void delete(Long id){supplierRepository.delete(id);}
+
 }

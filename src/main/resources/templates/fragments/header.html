@@ -39,6 +39,12 @@
                     </a>
                 </li>
                 <li th:if="${#authorization.expression('isAuthenticated()')}">
+                    <!--<span>[[${#httpServletRequest.remoteUser}]],您好</span>-->
+                    <a href="#" th:href="@{#}">
+                        [[${#httpServletRequest.remoteUser}]],您好
+                    </a>
+                </li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}">
                     <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;退出
                     </a>

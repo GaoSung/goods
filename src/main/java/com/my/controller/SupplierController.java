@@ -1,9 +1,6 @@
 package com.my.controller;
 
-import com.my.domain.Goods;
 import com.my.domain.Supplier;
-import com.my.params.SupplierParams;
-import com.my.service.GoodsService;
 import com.my.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -18,7 +15,7 @@ import javax.validation.Valid;
  * Created by gaoxiang on 2017/5/18.
  */
 @Controller
-@Secured("ROLE_USER")
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class SupplierController {
 
     @Autowired
@@ -60,6 +57,12 @@ public class SupplierController {
     @PostMapping("supplier")
     public String save(@Valid @ModelAttribute("supplier") Supplier supplier, RedirectAttributes ra) {
         supplierService.save(supplier);
+        return "redirect:/supplier";
+    }
+
+    @GetMapping("supplier/delete/{id}")
+    public String delete(@PathVariable("id") Long id,RedirectAttributes ra) {
+        supplierService.delete(id);
         return "redirect:/supplier";
     }
 

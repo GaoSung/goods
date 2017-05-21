@@ -24,20 +24,22 @@
 <div th:insert="fragments/layout :: content(~{ :: #account-details})">
     <div id="account-details">
         <form class="form-narrow form-horizontal" action="#" method="post" th:action="@{/account}" th:object="${account}">
-            <th:block th:if="${param.error != null}">
-                <div th:replace="fragments/alert :: alert (type='danger', message='保存失败！请重试.')">Alert</div>
+            <th:block th:if="${#fields.hasErrors('${account.*}')}">
+                <div th:replace="fragments/alert :: alert (type='danger', message='提交内容有错误！请重试.')">Alert</div>
             </th:block>
             <input type="hidden" class="form-control" name="id" th:field="*{id}"/>
-            <div class="form-group">
+            <div class="form-group" th:classappend="${#fields.hasErrors('userName')}? 'has-error'">
                 <label for="userName" class="col-lg-2 control-label">用户名</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="userName" placeholder="请输入用户名" name="userName" th:field="*{userName}"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">非法的用户名</span>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="address" class="col-lg-2 control-label">密码</label>
+            <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
+                <label for="password" class="col-lg-2 control-label">密码</label>
                 <div class="col-lg-10">
-                    <input type="password" class="form-control" id="address" placeholder="请输入密码" name="address" th:field="*{password}"/>
+                    <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password" th:field="*{password}"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">请输入合法的密码</span>
                 </div>
             </div>
             <div class="form-group">

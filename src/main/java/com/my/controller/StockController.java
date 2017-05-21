@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * Created by gaoxiang on 2017/5/18.
  */
 @Controller
-@Secured("ROLE_USER")
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class StockController {
 
     @Autowired

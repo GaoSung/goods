@@ -3,11 +3,6 @@
 <!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
 <head th:replace="fragments/layout :: head(~{this :: title}, ~{this :: .custom-link}, ~{this :: .custom-script})">
     <title>商品信息列表</title>
-    <!-- Custom links for this page only -->
-    <link class="custom-link" href="../../../resources/static/css/task/task.css" th:href="@{/css/task/task.css}" />
-
-    <!-- Custom scripts for this page only -->
-    <script class="custom-script" src="../../../resources/js/task/task.js" th:src="@{/js/task/task.js}"></script>
 </head>
 <body>
 
@@ -27,7 +22,7 @@
                 <label for="goodsName">商品名称</label>
                 <input type="text" class="form-control" style="width: 200px;" id="goodsName" th:field="*{name}">
             </div>
-            <button type="submit" class="btn btn-default">查询</button>
+            <button type="submit" class="btn btn-primary">查询</button>
             <!--<a class="btn btn-default" th:href="@{/stock/add}">新增</a>-->
         </form>
         <table class="table table-bordered table-striped">

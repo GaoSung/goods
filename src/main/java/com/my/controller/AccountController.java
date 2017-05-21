@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,8 +26,13 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @ModelAttribute("module")
+    public String module() {
+        return "account";
+    }
+
     @ModelAttribute("account")
-    public Account module() {
+    public Account accountModule() {
         return new Account();
     }
 
@@ -48,7 +54,6 @@ public class AccountController {
     }
 
     @GetMapping("edit/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
     @Secured("ROLE_ADMIN")
     public Account editAccount(@PathVariable("id") Long id) {
         return accountService.findOne(id);
@@ -61,7 +66,7 @@ public class AccountController {
     }
 
     @PostMapping("search")
-    public String getStocksByGoodsName(@ModelAttribute("account") Account account, Model model){
+    public String getAccountsByUserName(@ModelAttribute("account") Account account, Model model){
         model.addAttribute("accounts",accountService.findAllByName(account.getUserName()));
         return "account/account-list";
     }
@@ -74,10 +79,19 @@ public class AccountController {
 
     @PostMapping("")
     @Secured("ROLE_ADMIN")
-    public String save(@ModelAttribute("account") Account account, RedirectAttributes ra) {
+    public String save(@Valid @ModelAttribute("account") Account account, Errors errors, RedirectAttributes ra) {
+        if (errors.hasErrors()) {
+            return "account/account";
+        }
         accountService.save(account);
         return "redirect:/account";
     }
 
+    @GetMapping("delete/{id}")
+    @Secured("ROLE_ADMIN")
+    public String delete(@PathVariable("id") Long id){
+        accountService.delete(id);
+        return "redirect:/account";
+    }
 
 }

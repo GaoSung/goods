@@ -83,4 +83,6 @@ public class AccountService implements UserDetailsService {
 	}
 
 	public List<Account> findAllByName(String name){return accountRepository.findByUserNameContaining(name);}
+
+	public void delete(Long id){accountRepository.delete(id);}
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{view.index.title}">Welcome!</title>
+    <title>商品销售管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../../resources/static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}"/>
     <link href="../../../resources/static/css/core.css" rel="stylesheet" media="screen" th:href="@{/css/core.css}" />
@@ -16,9 +16,9 @@
         <!-- /* The message code is returned from the @Controller */ -->
         <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
     </th:block>
-    <p>
-        欢迎！
-    </p>
+    <div class="text-center">
+        <h1>欢迎登录商品销售管理系统！</h1>
+    </div>
 </div>
 </body>
 </html>
