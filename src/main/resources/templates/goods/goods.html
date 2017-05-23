@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 <!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
 <head th:replace="fragments/layout :: head(~{this :: title}, ~{this :: .custom-link}, ~{this :: .custom-script})">
-    <title>Task Details</title>
+    <title>商品详情</title>
     <!-- Custom links for this page only -->
     <link class="custom-link" href="../../../resources/static/css/task/task.css" th:href="@{/css/task/task.css}" />
 
@@ -47,6 +47,13 @@
                 <label for="cost" class="col-lg-2 control-label">进价</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="cost" placeholder="价格" name="cost" th:field="*{cost}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="supplier" class="col-lg-2 control-label">供应商</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="supplier" placeholder="供应商" th:field="*{supplier.name}"/>
+                    <input type="hidden" class="form-control" th:field="*{supplier.id}"/>
                 </div>
             </div>
             <div class="form-group">

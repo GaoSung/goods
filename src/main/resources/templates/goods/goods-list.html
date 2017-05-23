@@ -10,7 +10,7 @@
 <header th:insert="fragments/layout :: header(~{ :: .breadcrumb})">
     <ol class="breadcrumb container">
         <li><a href="#">首页</a></li>
-        <li><a href="#">商品管理</a></li>
+        <li><a href="#" th:href="@{/goods}">商品管理</a></li>
     </ol>
 </header>
 
@@ -23,7 +23,7 @@
                 <input type="text" class="form-control" style="width: 200px;" id="goodsName" th:field="*{name}">
             </div>
             <button type="submit" class="btn btn-primary">查询</button>
-            <a class="btn btn-default" th:href="@{/goods/add}">新增</a>
+            <a class="btn btn-primary" th:href="@{/goods/add}">新增</a>
         </form>
         <table class="table table-bordered table-striped">
             <thead>
@@ -32,6 +32,7 @@
                 <td>商品名称</td>
                 <td>价格</td>
                 <td>进价</td>
+                <td>供应商</td>
                 <td>状态</td>
                 <td>上架时间</td>
             </tr>
@@ -47,6 +48,7 @@
                 </td>
                 <td th:text="${item.price}">Text ...</td>
                 <td th:text="${item.cost}">Text ...</td>
+                <td th:text="${item.supplier.name}"></td>
                 <td th:text="${item.status==1?'上架':'下架'}">Text ...</td>
                 <td th:text="${#calendars.format(item.createTime)}">July 11, 2017 2:17:16 PM CDT</td>
             </tr>

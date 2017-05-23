@@ -37,7 +37,7 @@ public class Stock extends AbstractAuditingEntity implements java.io.Serializabl
      * 商品信息
      */
     @JsonIgnore
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     @JoinColumn(name="goods_id")
     private Goods goods;
 

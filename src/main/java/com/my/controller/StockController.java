@@ -37,7 +37,6 @@ public class StockController {
     @GetMapping("stock")
     public String stocks(Model model) {
         model.addAttribute("stocks", stockService.findAll());
-        System.out.println(stockService.findAll());
         return "stock/stock-list";
     }
 
