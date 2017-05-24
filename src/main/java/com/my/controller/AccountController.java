@@ -55,8 +55,9 @@ public class AccountController {
 
     @GetMapping("edit/{id}")
     @Secured("ROLE_ADMIN")
-    public Account editAccount(@PathVariable("id") Long id) {
-        return accountService.findOne(id);
+    public String editAccount(@PathVariable("id") Long id,Model model) {
+        model.addAttribute("account", accountService.findOne(id));
+        return "account/account";
     }
 
     @GetMapping("")
