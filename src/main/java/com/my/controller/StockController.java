@@ -3,6 +3,7 @@ package com.my.controller;
 import com.my.domain.Goods;
 import com.my.domain.Stock;
 import com.my.domain.Supplier;
+import com.my.service.GoodsService;
 import com.my.service.StockService;
 import com.my.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class StockController {
 
     @Autowired
     private StockService stockService;
+    @Autowired
+    private GoodsService goodsService;
 
     @ModelAttribute("module")
     public String module() {
@@ -43,6 +46,7 @@ public class StockController {
     @GetMapping("stock/{id}")
     public String stock(@PathVariable("id") Long id, Model model) {
         model.addAttribute("stock", stockService.findOne(id));
+        model.addAttribute("goodsList", goodsService.findAll());
         return "stock/stock";
     }
 
@@ -53,7 +57,8 @@ public class StockController {
     }
 
     @GetMapping("stock/add")
-    public String add(@ModelAttribute("stock") Stock stock) {
+    public String add(@ModelAttribute("stock") Stock stock,Model model) {
+        model.addAttribute("goodsList",goodsService.findAll());
         return "stock/stock";
     }
 

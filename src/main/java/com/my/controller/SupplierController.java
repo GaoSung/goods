@@ -66,5 +66,4 @@ public class SupplierController {
         return "redirect:/supplier";
     }
 
-
 }

@@ -2,6 +2,7 @@ package com.my.controller;
 
 import com.my.domain.Goods;
 import com.my.service.GoodsService;
+import com.my.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private SupplierService supplierService;
 
     @ModelAttribute("module")
     public String module() {
@@ -42,11 +45,13 @@ public class GoodsController {
     @RequestMapping(value = "goods/{id}", method = RequestMethod.GET)
     public String goods(@PathVariable("id") Long id, Model model) {
         model.addAttribute("goods", goodsService.findOne(id));
+        model.addAttribute("suppliers",supplierService.findAll());
         return "goods/goods";
     }
 
     @GetMapping("goods/add")
-    public String add(@ModelAttribute("goods") Goods goods) {
+    public String add(@ModelAttribute("goods") Goods goods,Model model) {
+        model.addAttribute("suppliers",supplierService.findAll());
         return "goods/goods";
     }
 
